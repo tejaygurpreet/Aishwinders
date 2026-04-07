@@ -1,6 +1,6 @@
 /** Local brand photography — place files in `public/images/`. */
 export const HERO_BACKGROUND_IMAGE = "/images/hero-background1.png";
-/** Our Story hero — use lowercase path; rename file to match on case-sensitive hosts. */
+/** Our Story hero — `public/images/story-background.jpg` (lowercase; avoid symlinks for Vercel). */
 export const STORY_HERO_BACKGROUND_IMAGE = "/images/story-background.jpg";
 export const PRODUCT_POUCH_IMAGE = "/images/product-pouch.jpg";
 
