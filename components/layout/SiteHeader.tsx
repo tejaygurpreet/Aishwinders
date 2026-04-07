@@ -1,9 +1,11 @@
 "use client";
 
-import { Leaf, Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { LOGO_IMAGE } from "@/lib/assets";
 import { selectCartItemCount, useCartStore } from "@/store/cartStore";
 
 const nav = [
@@ -40,19 +42,20 @@ export function SiteHeader() {
         <div className="mx-auto flex h-[4.25rem] max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
           <Link
             href="/"
-            className="group flex shrink-0 items-center gap-2.5"
+            className="header-brand-logo flex h-11 shrink-0 items-center lg:h-[52px]"
             aria-label="Rooherb home"
           >
-            <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#4A7043]/12 ring-1 ring-[#4A7043]/20 transition group-hover:bg-[#4A7043]/18">
-              <Leaf
-                className="h-[1.15rem] w-[1.15rem] text-[#4A7043]"
-                strokeWidth={1.75}
-                aria-hidden
-              />
-            </span>
-            <span className="font-display text-xl tracking-[0.12em] text-[#2a3328] sm:text-[1.35rem]">
-              Rooherb
-            </span>
+            <Image
+              src={LOGO_IMAGE}
+              alt=""
+              width={1888}
+              height={544}
+              priority
+              placeholder="empty"
+              className="header-brand-logo__img block h-11 w-auto max-w-[min(100%,12rem)] object-contain object-left lg:h-[52px] lg:max-w-[15rem]"
+              sizes="(max-width: 1023px) 200px, 240px"
+              style={{ backgroundColor: "transparent" }}
+            />
           </Link>
 
           <nav
@@ -149,14 +152,22 @@ export function SiteHeader() {
           }`}
           aria-label="Mobile"
         >
-          <div className="mb-8 flex items-center gap-2">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#4A7043]/12">
-              <Leaf className="h-5 w-5 text-[#4A7043]" strokeWidth={1.75} />
-            </span>
-            <span className="font-display text-lg tracking-[0.14em]">
-              Rooherb
-            </span>
-          </div>
+          <Link
+            href="/"
+            className="header-brand-logo mb-8 flex h-11 shrink-0 items-center"
+            onClick={() => setOpen(false)}
+          >
+            <Image
+              src={LOGO_IMAGE}
+              alt=""
+              width={1888}
+              height={544}
+              placeholder="empty"
+              className="header-brand-logo__img block h-11 w-auto max-w-[12rem] object-contain object-left"
+              sizes="200px"
+              style={{ backgroundColor: "transparent" }}
+            />
+          </Link>
           <ul className="flex flex-col gap-1">
             {nav.map((item) => (
               <li key={item.href}>

@@ -1,6 +1,7 @@
 import { Leaf } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { LEAF_DECOR_IMAGE } from "@/lib/assets";
 
 const footerNav = [
   { href: "/shop", label: "Shop" },
@@ -25,7 +26,7 @@ function FooterLeafDecor({
       aria-hidden
     >
       <Image
-        src="/images/leaf.jpg"
+        src={LEAF_DECOR_IMAGE}
         alt=""
         fill
         className={`footer-leaf-img object-contain ${rotation} ${opacityClass}`}
@@ -38,42 +39,46 @@ function FooterLeafDecor({
 export function SiteFooter() {
   return (
     <footer className="footer-premium border-t border-[#e8e2d8]/90">
-      <div className="footer-premium__texture" aria-hidden />
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#faf8f4]/72 via-[#faf8f4]/48 to-[#f6f1ea]/65"
         aria-hidden
       />
 
-      {/* Decorative leaves — all inset inside footer; varied size, angle, opacity */}
+      {/* Decorative leaves — positioned in lower/mid footer only (avoids seam with main content) */}
       <FooterLeafDecor
-        className="absolute left-[2%] top-5 z-0 w-[3.25rem] sm:left-[4%] sm:top-6 sm:w-[4rem]"
+        className="absolute bottom-7 left-[3%] z-0 w-[3.25rem] sm:bottom-8 sm:left-[5%] sm:w-[3.75rem]"
         rotation="-rotate-[17deg]"
         opacityClass="opacity-[0.5]"
       />
       <FooterLeafDecor
-        className="absolute right-[5%] top-7 z-0 w-[5.5rem] sm:right-[8%] sm:top-8 sm:w-[6.5rem] lg:w-[7.25rem]"
+        className="absolute bottom-10 right-[6%] z-0 w-[5rem] sm:bottom-11 sm:right-[9%] sm:w-[6rem] lg:w-[6.75rem]"
         rotation="rotate-[22deg]"
         opacityClass="opacity-[0.72]"
       />
       <FooterLeafDecor
-        className="absolute bottom-8 left-[1%] z-0 w-[6rem] sm:bottom-10 sm:left-[3%] sm:w-[7.25rem]"
+        className="absolute bottom-14 left-[10%] z-0 w-[5.5rem] sm:bottom-16 sm:left-[12%] sm:w-[6.25rem]"
         rotation="rotate-[168deg]"
         opacityClass="opacity-[0.55]"
       />
       <FooterLeafDecor
-        className="absolute bottom-10 right-[4%] z-0 w-[4.75rem] sm:bottom-12 sm:right-[7%] sm:w-[5.5rem]"
+        className="absolute bottom-8 right-[14%] z-0 w-[4.25rem] sm:bottom-9 sm:right-[16%] sm:w-[5rem]"
         rotation="-rotate-[158deg]"
         opacityClass="opacity-[0.48]"
       />
       <FooterLeafDecor
-        className="absolute right-3 top-[28%] z-0 hidden w-[4rem] md:block lg:right-5 lg:top-[30%] lg:w-[5rem]"
+        className="absolute bottom-[26%] right-[3%] z-0 hidden w-[3.75rem] md:block lg:bottom-[28%] lg:right-[5%] lg:w-[4.5rem]"
         rotation="rotate-[11deg]"
         opacityClass="opacity-[0.45]"
       />
       <FooterLeafDecor
-        className="absolute bottom-[20%] left-[20%] z-0 hidden w-[3rem] lg:bottom-[24%] lg:left-[24%] lg:block lg:w-[3.5rem]"
+        className="absolute bottom-[22%] left-[18%] z-0 hidden w-[2.85rem] md:block lg:bottom-[24%] lg:left-[22%] lg:w-[3.25rem]"
         rotation="rotate-[192deg]"
         opacityClass="opacity-[0.38]"
+      />
+      <FooterLeafDecor
+        className="absolute bottom-[34%] left-[6%] z-0 w-[2.75rem] sm:bottom-[36%] sm:left-[8%] sm:w-[3.25rem]"
+        rotation="-rotate-[24deg]"
+        opacityClass="opacity-[0.42]"
       />
 
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 py-11 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
