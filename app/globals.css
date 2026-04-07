@@ -51,18 +51,22 @@ body {
 }
 
 /* Full PNG logo — alpha preserved; no fill behind Next/Image wrapper */
-.header-brand-logo {
+.header-brand-logo,
+.footer-brand-logo {
   box-shadow: none;
   text-decoration: none;
   background: none;
 }
 .header-brand-logo > span,
-.header-brand-logo__img {
+.header-brand-logo__img,
+.footer-brand-logo > span,
+.footer-brand-logo__img {
   background-color: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
 }
-.header-brand-logo > span {
+.header-brand-logo > span,
+.footer-brand-logo > span {
   display: inline-flex !important;
   align-items: center !important;
   max-height: 100%;
@@ -313,16 +317,17 @@ body {
   }
 }
 
-/* Footer — cream base; decorative leaves are explicit <Image>s only (no tiled repeat) */
+/* Footer — cream base; leaves clipped to footer only (no filter bleed into main) */
 .footer-premium {
   position: relative;
   z-index: 0;
+  margin-top: 0;
   isolation: isolate;
   background-color: #faf8f4;
   overflow: hidden;
 }
 
-/* Decorative footer leaves — PNG alpha blends on cream; soft shadow only */
+/* Decorative footer leaves — PNG alpha on cream; no drop-shadow (avoids painting outside footer) */
 .footer-leaf-wrap {
   background: transparent;
 }
@@ -333,12 +338,5 @@ body {
   outline: 0;
   background: transparent !important;
   mix-blend-mode: normal;
-  /* Opacity set per leaf in markup; tight shadow avoids bleed outside footer */
-  filter: drop-shadow(0 4px 12px rgba(28, 36, 25, 0.07));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .footer-leaf-img {
-    filter: drop-shadow(0 3px 8px rgba(28, 36, 25, 0.06));
-  }
+  filter: none;
 }
