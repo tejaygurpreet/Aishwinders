@@ -1,0 +1,16 @@
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+
+let browserClient: SupabaseClient | null = null;
+
+/** Browser Supabase client (anon key). Use for future client-side reads; checkout writes go through API routes. */
+export function getSupabaseBrowser(): SupabaseClient {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anon) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are required.");
+  }
+  if (!browserClient) {
+    browserClient = createClient(url, anon);
+  }
+  return browserClient;
+}
