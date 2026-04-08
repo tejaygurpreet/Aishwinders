@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Phone } from "lucide-react";
 import { ContactForm } from "@/components/support/ContactForm";
+import { SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Support",
@@ -40,6 +41,12 @@ export default function SupportPage() {
           <p className="mt-4 text-center text-[0.85rem] text-[#3d463a]/75">
             Mon–Sat · 10:00 – 18:00 IST
           </p>
+          <a
+            href={`mailto:${SUPPORT_EMAIL}`}
+            className="mt-5 block text-center text-[0.95rem] font-light tracking-[0.03em] text-[#222222] transition hover:text-[#4A7043]"
+          >
+            {SUPPORT_EMAIL}
+          </a>
         </div>
 
         <h2 className="mt-14 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[#5c6658]">

@@ -1,5 +1,7 @@
 /** Inline styles for email client compatibility */
 
+import { SHIPPING_INR } from "@/lib/catalog";
+
 const brand = {
   sage: "#4A7043",
   charcoal: "#222222",
@@ -26,6 +28,9 @@ export function orderConfirmationHtml(params: {
   items: { name: string; quantity: number; lineTotalInr: number }[];
   totalInr: number;
 }): string {
+  const subtotalInr = params.items.reduce((s, l) => s + l.lineTotalInr, 0);
+  const shippingInr = params.items.length > 0 ? SHIPPING_INR : 0;
+
   const rows = params.items
     .map(
       (l) => `
@@ -105,8 +110,13 @@ export function orderConfirmationHtml(params: {
               </table>
               <table role="presentation" width="100%" style="margin-top:20px;">
                 <tr>
+                  <td style="font-size:14px;color:${brand.muted};">Subtotal</td>
+                  <td align="right" style="font-size:14px;color:${brand.charcoal};">₹${subtotalInr}</td>
+                </tr>
+                <tr><td colspan="2" style="height:8px;"></td></tr>
+                <tr>
                   <td style="font-size:14px;color:${brand.muted};">Shipping</td>
-                  <td align="right" style="font-size:14px;color:${brand.sage};font-weight:600;">Free</td>
+                  <td align="right" style="font-size:14px;color:${brand.charcoal};">₹${shippingInr}</td>
                 </tr>
                 <tr><td colspan="2" style="height:12px;"></td></tr>
                 <tr>

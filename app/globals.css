@@ -327,16 +327,3 @@ body {
   overflow: hidden;
 }
 
-/* Decorative footer leaves — PNG alpha on cream; no drop-shadow (avoids painting outside footer) */
-.footer-leaf-wrap {
-  background: transparent;
-}
-
-.footer-leaf-img {
-  display: block;
-  border: 0;
-  outline: 0;
-  background: transparent !important;
-  mix-blend-mode: normal;
-  filter: none;
-}

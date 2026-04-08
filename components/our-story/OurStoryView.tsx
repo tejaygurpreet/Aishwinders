@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Playfair_Display } from "next/font/google";
 import { motion } from "framer-motion";
 import { STORY_HERO_BACKGROUND_IMAGE } from "@/lib/assets";
@@ -192,59 +191,6 @@ export function OurStoryView() {
             </motion.li>
           ))}
         </motion.ul>
-      </section>
-
-      {/* —— CTA —— */}
-      <section className="border-t border-[#ebe8e2] bg-[#faf8f4] px-8 py-24 sm:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.85, ease: easeLux }}
-          className="mx-auto max-w-lg text-center"
-        >
-          <p className="font-display text-[1.15rem] font-medium tracking-[-0.02em] text-[#1c1f1a]">
-            Continue the journey
-          </p>
-          <p className="mt-3 text-[0.9rem] leading-relaxed text-[#5c6658]">
-            See where we grow, and how each leaf becomes Rooherb.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.9, delay: 0.1, ease: easeLux }}
-          className="mx-auto mt-14 flex max-w-xl flex-col items-stretch gap-5 sm:max-w-2xl sm:flex-row sm:items-center sm:justify-center sm:gap-7"
-        >
-          <motion.div
-            whileHover={{ y: -3, scale: 1.015 }}
-            whileTap={{ scale: 0.985 }}
-            transition={{ type: "spring", stiffness: 400, damping: 24 }}
-            className="flex-1 sm:max-w-[14rem] sm:flex-none"
-          >
-            <Link
-              href="/discover"
-              className="flex min-h-[3.5rem] w-full items-center justify-center rounded-full border border-[#1c1f1a]/[0.08] bg-white px-9 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-[#1c1f1a] shadow-[0_6px_28px_rgba(28,31,26,0.07)] transition-colors hover:border-[#4A7043]/30 hover:text-[#4A7043]"
-            >
-              Meet the Farm
-            </Link>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -4, scale: 1.02 }}
-            whileTap={{ scale: 0.985 }}
-            transition={{ type: "spring", stiffness: 380, damping: 22 }}
-            className="flex-1 sm:max-w-[14rem] sm:flex-none"
-          >
-            <Link
-              href="/journal"
-              className="flex min-h-[3.5rem] w-full items-center justify-center rounded-full bg-[#4A7043] px-9 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white shadow-[0_16px_44px_rgba(74,112,67,0.32)] transition-colors hover:bg-[#3f6340]"
-            >
-              Our Process
-            </Link>
-          </motion.div>
-        </motion.div>
       </section>
     </main>
   );

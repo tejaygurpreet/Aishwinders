@@ -4,13 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CHECKOUT_UPI_ID } from "@/lib/constants/upi";
+import { SUPPORT_EMAIL } from "@/lib/site";
 import type { OrderItemInput } from "@/lib/catalog";
-import { selectSubtotalInr, useCartStore } from "@/store/cartStore";
+import {
+  selectGrandTotalInr,
+  selectShippingInr,
+  selectSubtotalInr,
+  useCartStore,
+} from "@/store/cartStore";
 
 export default function CheckoutPage() {
   const lines = useCartStore((s) => s.lines);
   const clearCart = useCartStore((s) => s.clearCart);
   const subtotalInr = useCartStore(selectSubtotalInr);
+  const shippingInr = useCartStore(selectShippingInr);
+  const grandTotal = useCartStore(selectGrandTotalInr);
 
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
@@ -23,9 +31,6 @@ export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const [emailWarning, setEmailWarning] = useState(false);
-
-  const shippingInr = 0;
-  const grandTotal = subtotalInr + shippingInr;
 
   const itemsPayload: OrderItemInput[] = useMemo(
     () => lines.map((l) => ({ id: l.id, quantity: l.quantity })),
@@ -121,7 +126,7 @@ export default function CheckoutPage() {
             Your order is saved
             {emailWarning
               ? "."
-              : " and we’ve emailed full details to our team at aishwinderrehal@gmail.com. We’ll verify your UPI payment and arrange shipping."}
+              : ` and we’ve emailed full details to our team at ${SUPPORT_EMAIL}. We’ll verify your UPI payment and arrange shipping.`}
           </p>
           {emailWarning ? (
             <p className="mt-4 max-w-md text-[0.9rem] leading-relaxed text-[#7a5a2e]">
@@ -287,7 +292,8 @@ export default function CheckoutPage() {
               {submitting ? "Saving your order…" : "I have made the UPI payment"}
             </button>
             <p className="mt-4 text-center text-[0.72rem] text-[#5c6658]/90">
-              We save your order to our system, email aishwinderrehal@gmail.com with full details, then clear your cart.
+              We save your order to our system, email {SUPPORT_EMAIL} with full
+              details, then clear your cart.
             </p>
           </div>
 
@@ -304,7 +310,7 @@ export default function CheckoutPage() {
                         src={line.imageSrc}
                         alt=""
                         fill
-                        className="object-contain p-1"
+                        className="object-contain object-center"
                         sizes="56px"
                       />
                     ) : null}
@@ -328,7 +334,9 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between gap-4">
                 <dt>Shipping</dt>
-                <dd className="text-[#4A7043]">Free</dd>
+                <dd className="tabular-nums text-[#222222]">
+                  ₹{shippingInr}
+                </dd>
               </div>
               <div className="border-t border-[#e0d8ce] pt-4 font-display text-xl">
                 <div className="flex justify-between gap-4">

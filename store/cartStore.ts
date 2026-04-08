@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { SHIPPING_INR } from "@/lib/catalog";
 
 export type CartLine = {
   id: string;
@@ -74,4 +75,12 @@ export function selectCartItemCount(state: CartState): number {
 
 export function selectSubtotalInr(state: CartState): number {
   return state.lines.reduce((acc, l) => acc + l.priceInr * l.quantity, 0);
+}
+
+export function selectShippingInr(state: CartState): number {
+  return state.lines.length > 0 ? SHIPPING_INR : 0;
+}
+
+export function selectGrandTotalInr(state: CartState): number {
+  return selectSubtotalInr(state) + selectShippingInr(state);
 }

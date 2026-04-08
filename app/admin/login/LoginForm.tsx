@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { BrandLogoLink } from "@/components/layout/BrandLogoLink";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -39,10 +40,8 @@ export default function LoginForm() {
   return (
     <main className="flex min-h-[70vh] flex-1 flex-col items-center justify-center bg-[#f7f4ee] px-5 py-16">
       <div className="w-full max-w-md rounded-2xl border border-[#ebe4d8] bg-white/90 p-8 shadow-sm">
-        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#4A7043]">
-          Rooherb
-        </p>
-        <h1 className="font-display mt-2 text-2xl text-[#222222]">Admin sign in</h1>
+        <BrandLogoLink variant="admin" />
+        <h1 className="font-display mt-4 text-2xl text-[#222222]">Admin sign in</h1>
         <p className="mt-2 text-[0.9rem] text-[#5c6658]">
           Enter the dashboard password to view orders.
         </p>

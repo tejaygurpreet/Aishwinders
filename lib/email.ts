@@ -5,8 +5,7 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const notifyTo =
-  process.env.ORDER_NOTIFY_EMAIL ?? "aishwinderrehal@gmail.com";
+const notifyTo = process.env.ORDER_NOTIFY_EMAIL ?? "support@rooherb.com";
 
 /** Resend "from" header: Rooherb <env> or Rooherb <support@rooherb.com>. */
 function resendFrom(): string {

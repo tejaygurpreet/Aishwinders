@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import {
+  selectGrandTotalInr,
+  selectShippingInr,
   selectSubtotalInr,
   useCartStore,
 } from "@/store/cartStore";
@@ -13,9 +15,8 @@ export default function CartPage() {
   const setLineQuantity = useCartStore((s) => s.setLineQuantity);
   const removeLine = useCartStore((s) => s.removeLine);
   const subtotalInr = useCartStore(selectSubtotalInr);
-
-  const shippingInr = 0;
-  const grandTotal = subtotalInr + shippingInr;
+  const shippingInr = useCartStore(selectShippingInr);
+  const grandTotal = useCartStore(selectGrandTotalInr);
 
   return (
     <main className="flex flex-1 flex-col bg-[#f7f4ee]">
@@ -60,7 +61,7 @@ export default function CartPage() {
                         src={line.imageSrc}
                         alt=""
                         fill
-                        className="object-contain p-2"
+                        className="object-contain object-center"
                         sizes="128px"
                       />
                     ) : null}
@@ -137,7 +138,9 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between gap-4">
                   <dt>Shipping</dt>
-                  <dd className="text-[#4A7043]">Free</dd>
+                  <dd className="tabular-nums text-[#222222]">
+                    {lines.length > 0 ? `₹${shippingInr}` : "—"}
+                  </dd>
                 </div>
                 <div className="border-t border-[#e0d8ce] pt-4">
                   <div className="flex justify-between gap-4 font-display text-xl text-[#222222]">

@@ -1,25 +1,45 @@
 "use client";
 
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
-import Image from "next/image";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { LOGO_IMAGE } from "@/lib/assets";
+import { useEffect, useRef, useState } from "react";
+import { BrandLogoLink } from "@/components/layout/BrandLogoLink";
 import { selectCartItemCount, useCartStore } from "@/store/cartStore";
 
 const nav = [
   { href: "/shop", label: "Shop" },
-  { href: "/discover", label: "Discover" },
+  { href: "/blogs", label: "Blogs" },
   { href: "/our-story", label: "Our Story" },
-  { href: "/journal", label: "Journal" },
   { href: "/support", label: "Support" },
 ] as const;
+
+const SCROLL_SHOW_TOP = 12;
+const SCROLL_DOWN_HIDE = 64;
 
 export function SiteHeader() {
   const pathname = usePathname();
   const itemCount = useCartStore(selectCartItemCount);
   const [open, setOpen] = useState(false);
+  const [hiddenByScroll, setHiddenByScroll] = useState(false);
+  const lastY = useRef(0);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = lastY.current;
+    lastY.current = y;
+    if (open) {
+      setHiddenByScroll(false);
+      return;
+    }
+    if (y < SCROLL_SHOW_TOP) {
+      setHiddenByScroll(false);
+      return;
+    }
+    if (y > prev && y > SCROLL_DOWN_HIDE) setHiddenByScroll(true);
+    else if (y < prev) setHiddenByScroll(false);
+  });
 
   useEffect(() => {
     setOpen(false);
@@ -36,27 +56,18 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  const headerHidden = open ? false : hiddenByScroll;
+
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/40 glass-header">
+      <motion.header
+        initial={false}
+        animate={{ y: headerHidden ? "-100%" : "0%" }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed inset-x-0 top-0 z-50 border-b border-white/40 glass-header will-change-transform"
+      >
         <div className="mx-auto flex h-[4.25rem] max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
-          <Link
-            href="/"
-            className="header-brand-logo flex h-11 shrink-0 items-center lg:h-[52px]"
-            aria-label="Rooherb home"
-          >
-            <Image
-              src={LOGO_IMAGE}
-              alt=""
-              width={1888}
-              height={544}
-              priority
-              placeholder="empty"
-              className="header-brand-logo__img block h-11 w-auto max-w-[min(100%,12rem)] object-contain object-left lg:h-[52px] lg:max-w-[15rem]"
-              sizes="(max-width: 1023px) 200px, 240px"
-              style={{ backgroundColor: "transparent" }}
-            />
-          </Link>
+          <BrandLogoLink variant="header" />
 
           <nav
             className="hidden items-center gap-8 lg:flex"
@@ -129,9 +140,8 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
-      {/* Mobile drawer — CSS transitions only (no Framer; avoids hydration issues) */}
       <div
         className={`fixed inset-0 z-40 lg:hidden ${
           open ? "pointer-events-auto" : "pointer-events-none"
@@ -152,22 +162,10 @@ export function SiteHeader() {
           }`}
           aria-label="Mobile"
         >
-          <Link
-            href="/"
-            className="header-brand-logo mb-8 flex h-11 shrink-0 items-center"
-            onClick={() => setOpen(false)}
-          >
-            <Image
-              src={LOGO_IMAGE}
-              alt=""
-              width={1888}
-              height={544}
-              placeholder="empty"
-              className="header-brand-logo__img block h-11 w-auto max-w-[12rem] object-contain object-left"
-              sizes="200px"
-              style={{ backgroundColor: "transparent" }}
-            />
-          </Link>
+          <BrandLogoLink
+            variant="mobile"
+            onNavigate={() => setOpen(false)}
+          />
           <ul className="flex flex-col gap-1">
             {nav.map((item) => (
               <li key={item.href}>

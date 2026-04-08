@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { MotionProvider } from "@/components/providers/MotionProvider";
+import { LOGO_MARK_IMAGE } from "@/lib/assets";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -24,6 +25,10 @@ export const metadata: Metadata = {
   },
   description:
     "Premium sun-dried stevia leaves. Zero calories, whole-leaf purity, crafted for mindful sweetness.",
+  icons: {
+    icon: LOGO_MARK_IMAGE,
+    apple: LOGO_MARK_IMAGE,
+  },
 };
 
 export default function RootLayout({
