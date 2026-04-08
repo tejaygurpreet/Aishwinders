@@ -28,7 +28,7 @@ export default function AdminDashboardPage() {
 
   const load = useCallback(async () => {
     setError(null);
-    const res = await fetch("/api/admin/orders");
+    const res = await fetch("/api/admin/orders", { credentials: "same-origin" });
     const data = (await res.json()) as { orders?: OrderRow[]; error?: string };
     if (!res.ok) {
       setError(data.error ?? "Could not load orders.");
@@ -51,12 +51,15 @@ export default function AdminDashboardPage() {
   }, [load]);
 
   async function logout() {
-    await fetch("/api/admin/logout", { method: "POST" });
-    window.location.href = "/admin/login";
+    await fetch("/api/admin/logout", {
+      method: "POST",
+      credentials: "same-origin",
+    });
+    window.location.href = "/admin";
   }
 
   return (
-    <main className="min-h-screen flex-1 bg-[#f7f4ee] pb-24">
+    <main className="flex-1 pb-24">
       <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8">
         <header className="flex flex-col gap-6 border-b border-[#e8e2d8] pb-8 sm:flex-row sm:items-start sm:justify-between">
           <div>

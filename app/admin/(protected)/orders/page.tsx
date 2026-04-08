@@ -1,6 +1,6 @@
 "use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { OrderRow, OrderStatus } from "@/lib/types/order";
 
@@ -80,7 +80,10 @@ export default function AdminOrdersPage() {
 
   const load = useCallback(async () => {
     setError(null);
-    const res = await fetch("/api/admin/orders", { cache: "no-store" });
+    const res = await fetch("/api/admin/orders", {
+      cache: "no-store",
+      credentials: "same-origin",
+    });
     const data = (await res.json()) as { orders?: OrderRow[]; error?: string };
     if (!res.ok) {
       setError(data.error ?? "Could not load orders.");
@@ -115,6 +118,7 @@ export default function AdminOrdersPage() {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
+        credentials: "same-origin",
       });
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok) {
@@ -130,12 +134,15 @@ export default function AdminOrdersPage() {
   }
 
   async function logout() {
-    await fetch("/api/admin/logout", { method: "POST" });
-    window.location.href = "/admin/login";
+    await fetch("/api/admin/logout", {
+      method: "POST",
+      credentials: "same-origin",
+    });
+    window.location.href = "/admin";
   }
 
   return (
-    <main className="min-h-screen flex-1 bg-[#f7f4ee] pb-24">
+    <main className="flex-1 pb-24">
       <div className="mx-auto max-w-[1400px] px-5 py-10 sm:px-8 lg:px-10">
         <header className="flex flex-col gap-8 border-b border-[#e5ddd4] pb-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -310,7 +317,6 @@ export default function AdminOrdersPage() {
             </div>
           )}
         </div>
-
       </div>
     </main>
   );
